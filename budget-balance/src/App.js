@@ -1,32 +1,69 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
+
+import { BrowserRouter } from "react-router-dom";
+
+import "./App.css";
+import ProtectedRoute from "./routes/ProtectedRoute";
+import Signup from "./pages/authentication/singup/signup";
+import Login from "./pages/authentication/login/Login";
 import Dashboard from "./pages/Dashboard";
 import Expenses from "./pages/Expenses";
-import Savings from "./pages/Savings";
 import Transactions from "./pages/Transactions";
 import Budget from "./pages/Budget";
 import Layout from "./components/shared/layout";
-import { BrowserRouter } from "react-router-dom";
-import Signup from "./pages/authentication/singup/signup";
-import Login from "./pages/authentication/login/Login";
-
-import "./App.css";
+import Savings from "./pages/Savings";
 
 const App = () => {
   return (
     <div>
       <BrowserRouter>
-        <Layout>
-          <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/expenses" element={<Expenses />} />
-            <Route path="/savings" element={<Savings />} />
-            <Route path="/transactions" element={<Transactions />} />
-            <Route path="/budget" element={<Budget />} />
-            <Route path="/auth/signup" element={<Signup />} />
-            <Route path="/auth/login" element={<Login />} />
-          </Routes>
-        </Layout>
+        <Routes>
+          <Route path="/auth/signup" element={<Signup />} />
+          <Route path="/auth/login" element={<Login />} />
+          <Route path="/" element={<Layout />}>
+            <Route
+              index
+              element={
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="expenses"
+              element={
+                <ProtectedRoute>
+                  <Expenses />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="savings"
+              element={
+                <ProtectedRoute>
+                  <Savings />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="transactions"
+              element={
+                <ProtectedRoute>
+                  <Transactions />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="budget"
+              element={
+                <ProtectedRoute>
+                  <Budget />
+                </ProtectedRoute>
+              }
+            />
+          </Route>
+        </Routes>
       </BrowserRouter>
     </div>
   );

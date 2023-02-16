@@ -1,16 +1,20 @@
 import React from "react";
 import Navigation from "../../menu-items";
-import { NavLink } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 
-const layout = ({ children }) => {
+const layout = () => {
   return (
     <div>
       <nav>
         {Navigation.menuItem.map((item, index) => {
-          return <NavLink key={index}>{item.name}</NavLink>;
+          return (
+            <NavLink to={item.path} key={index}>
+              {item.name}
+            </NavLink>
+          );
         })}
       </nav>
-      <main>{children}</main>
+      <Outlet />
     </div>
   );
 };

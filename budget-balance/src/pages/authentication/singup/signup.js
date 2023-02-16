@@ -19,7 +19,6 @@ const Signup = () => {
     mutate: register,
   } = useMutation("register", createUser, {
     onSuccess: (data) => {
-      console.log("registered" + data);
       navigate("/auth/login");
     },
   });

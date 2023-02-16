@@ -29,12 +29,12 @@ export default {
       icon: <FaCommentAlt />,
     },
     {
-      path: "/login",
+      path: "/auth/login",
       name: "Login",
       icon: <FaShoppingBag />,
     },
     {
-      path: "/signup",
+      path: "/auth/signup",
       name: "SignUp",
       icon: <FaShoppingBag />,
     },
