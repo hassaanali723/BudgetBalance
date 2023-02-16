@@ -10,7 +10,7 @@ const layout = ({ children }) => {
           return <NavLink key={index}>{item.name}</NavLink>;
         })}
       </nav>
-      <nain>{children}</nain>
+      <main>{children}</main>
     </div>
   );
 };
