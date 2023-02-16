@@ -12,5 +12,9 @@ form {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  width: 50%;
+  width: 30%;
+}
+
+.MuiInputBase-root {
+  background-color: rgb(238, 238, 238);
 }
