@@ -8,7 +8,7 @@ import ProtectedRoute from "./routes/ProtectedRoute";
 import Signup from "./pages/authentication/singup/signup";
 import Login from "./pages/authentication/login/Login";
 import Dashboard from "./pages/Dashboard";
-import Expenses from "./pages/Expenses";
+import Accounts from "./pages/Accounts";
 import Transactions from "./pages/Transactions";
 import Budget from "./pages/Budget";
 import Layout from "./components/shared/layout";
@@ -31,10 +31,10 @@ const App = () => {
               }
             />
             <Route
-              path="expenses"
+              path="accounts"
               element={
                 <ProtectedRoute>
-                  <Expenses />
+                  <Accounts />
                 </ProtectedRoute>
               }
             />

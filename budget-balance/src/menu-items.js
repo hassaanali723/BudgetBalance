@@ -4,6 +4,7 @@ import AutoGraphIcon from "@mui/icons-material/AutoGraph";
 import WalletIcon from "@mui/icons-material/Wallet";
 import LoginIcon from "@mui/icons-material/Login";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
+import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 
 export default {
   menuItem: [
@@ -18,9 +19,9 @@ export default {
       icon: <PaidIcon />,
     },
     {
-      path: "/expenses",
-      name: "Expenses",
-      icon: <AutoGraphIcon />,
+      path: "/accounts",
+      name: "Accounts",
+      icon: <AccountBalanceIcon />,
     },
     {
       path: "/budget",
