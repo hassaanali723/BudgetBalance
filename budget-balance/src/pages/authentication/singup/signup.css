@@ -5,7 +5,7 @@
   align-items: center;
   height: 90vh;
   overflow: hidden;
-  gap: 30px;
+  margin: 15px auto;
 }
 
 form {
@@ -17,4 +17,16 @@ form {
 
 .MuiInputBase-root {
   background-color: rgb(238, 238, 238);
+}
+
+.inline-form {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+hr {
+  color: black;
+  width: 330px;
+  opacity: 50%;
 }
