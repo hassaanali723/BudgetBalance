@@ -23,6 +23,7 @@ import { NavLink, Outlet } from "react-router-dom";
 
 import * as React from "react";
 import { styled, useTheme } from "@mui/material/styles";
+import { Avatar, Menu, MenuItem } from "@mui/material";
 import Box from "@mui/material/Box";
 import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar from "@mui/material/AppBar";
@@ -41,6 +42,11 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import { Link } from "react-router-dom";
+import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
+import Login from "@mui/icons-material/Login";
+import Signup from "../../pages/authentication/singup/signup";
+import HowToRegIcon from '@mui/icons-material/HowToReg';
+import Logout from '@mui/icons-material/Logout';
 
 const drawerWidth = 240;
 
@@ -110,6 +116,16 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 const Layout = () => {
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const opn = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const handleDrawerOpen = () => {
@@ -124,21 +140,86 @@ const Layout = () => {
     <Box sx={{ backgroundColor: "#1f2a40", display: "flex" }}>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
-        <Toolbar>
+        <Toolbar sx={{ justifyContent: 'space-between' }}>
+          <Box sx={{display: 'flex', alignItems: 'center'}}>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              edge="start"
+              sx={{
+                marginRight: 5,
+                ...(open && { display: "none" }),
+              }}>
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" noWrap component="div">
+              Budget Balance
+            </Typography>
+          </Box>
+
           <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            sx={{
-              marginRight: 5,
-              ...(open && { display: "none" }),
-            }}>
-            <MenuIcon />
+            onClick={handleClick}
+            aria-controls={open ? 'account-menu' : undefined}
+            aria-haspopup="true"
+            aria-expanded={open ? 'true' : undefined}> 
+              <Avatar sx={{bgcolor: 'white'}}>
+                  <PersonOutlineOutlinedIcon sx={{color: '#1976d2'}} />
+              </Avatar>
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            Budget Balance
-          </Typography>
+
+          <Menu
+          anchorEl={anchorEl}
+          id="account-menu"
+          open={opn}
+          onClose={handleClose}
+          onClick={handleClose}
+          PaperProps={{
+          elevation: 0,
+          sx: {
+            overflow: 'visible',
+            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+            mt: 1.5,
+            '& .MuiAvatar-root': {
+              width: 32,
+              height: 32,
+              ml: -0.5,
+              mr: 1,
+            },
+            '&:before': {
+              content: '""',
+              display: 'block',
+              position: 'absolute',
+              top: 0,
+              right: 14,
+              width: 12,
+              height: 12,
+              bgcolor: 'background.paper',
+              transform: 'translateY(-50%) rotate(45deg)',
+              zIndex: 0,
+            },},}}
+            transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+            anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+            >
+            <MenuItem onClick={handleClose}>
+              <ListItemIcon>
+                <Login fontSize="small" />
+              </ListItemIcon>
+              Login
+            </MenuItem>
+            <MenuItem onClick={handleClose}>
+              <ListItemIcon>
+                <HowToRegIcon fontSize="small" />
+              </ListItemIcon>
+              Sign up
+            </MenuItem>
+            <MenuItem onClick={handleClose}>
+              <ListItemIcon>
+                <Logout fontSize="small" />
+              </ListItemIcon>
+              Logout
+            </MenuItem>
+          </Menu>
         </Toolbar>
       </AppBar>
       <Drawer
