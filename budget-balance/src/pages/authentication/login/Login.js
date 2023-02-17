@@ -22,6 +22,7 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../../store/actions/auth.actions";
+import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 
 // styling for box
 export const formStyle = {
@@ -83,61 +84,63 @@ const Login = () => {
           sx={{ fontWeight: "700", marginBottom: 3 }}>
           Login
         </Typography>
-        <TextField
-          label="Email Address"
-          placeholder="Enter Email Adress"
-          type="email"
-          fullWidth
-          required
-          value={email}
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
-        />
-
-        <FormControl variant="outlined" required>
-          <InputLabel htmlFor="password">Password</InputLabel>
-          <OutlinedInput
-            id="password"
-            label="Password"
-            placeholder="Enter password"
-            type={showPassword ? "text" : "password"}
-            value={password}
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                  edge="end">
-                  {showPassword ? <Visibility /> : <VisibilityOff />}
-                </IconButton>
-              </InputAdornment>
-            }
+        <ValidatorForm onSubmit={handleSubmit}>
+          <TextValidator
+            label="Email Address"
+            placeholder="Enter Email Adress"
+            type="email"
             fullWidth
+            required
+            value={email}
+            validators={["required", "isEmail"]}
+            errorMessages={["this field is required", "email is not valid"]}
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
           />
-        </FormControl>
 
-        <Button
-          type="submit"
-          color="primary"
-          variant="contained"
-          fullWidth
-          disabled={!email || !password}
-          sx={{
-            borderRadius: 30,
-            "&.Mui-disabled": {
-              bgcolor: "#7fbfff",
-              color: "white",
-            },
-          }}
-          onClick={handleSubmit}>
-          Login
-        </Button>
+          <FormControl variant="outlined" required>
+            <InputLabel htmlFor="password">Password</InputLabel>
+            <OutlinedInput
+              id="password"
+              label="Password"
+              placeholder="Enter password"
+              type={showPassword ? "text" : "password"}
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end">
+                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              }
+              fullWidth
+            />
+          </FormControl>
 
+          <Button
+            type="submit"
+            color="primary"
+            variant="contained"
+            fullWidth
+            disabled={!email || !password}
+            sx={{
+              borderRadius: 30,
+              "&.Mui-disabled": {
+                bgcolor: "#7fbfff",
+                color: "white",
+              },
+            }}>
+            Login
+          </Button>
+        </ValidatorForm>
         <Typography variant="subtitle2">
           <Link href="#">Forgot password ?</Link>
         </Typography>
