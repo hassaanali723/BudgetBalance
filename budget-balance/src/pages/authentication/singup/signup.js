@@ -61,7 +61,7 @@ const Signup = () => {
           type='text' fullWidth required value={firstName} onChange={(e) => {
             setFirstName(e.target.value)
           }} />
-          <TextField id="lastName" label='Last NAme' placeholder='Enter Last NAme' 
+          <TextField id="lastName" label='Last Name' placeholder='Enter Last Name' 
           type='text' fullWidth required value={lastName} onChange={(e) => {
             setLastName(e.target.value)
           }} />
