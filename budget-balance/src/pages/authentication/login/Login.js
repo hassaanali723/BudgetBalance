@@ -1,5 +1,6 @@
 import React from "react";
 import '../singup/signup.css'
+import '../singup/signup.js'
 import { Button, TextField, Box, Typography, FormControl, InputLabel,
 OutlinedInput, InputAdornment, IconButton, Link } from "@mui/material";
 import { useState } from "react";
@@ -10,22 +11,25 @@ import Dashboard from "../../Dashboard";
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
-export const formStyle = {height: '70vh', width: 300, bgcolor: 'white', color:'black',
-px: 5, py: 4, display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly'}
+// styling for box
+export const formStyle = {height: '80vh', width: 330, bgcolor: 'white', color:'#1f2a40',
+px: 5, py: 2, display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly',
+borderRadius: 2}
 
 const Login = () => {
 
+  // password visibility
   const [showPassword, setShowPassword] = useState(false);
-
   const handleClickShowPassword = () => setShowPassword((show) => !show);
-
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
 
+  // managing input states
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+
   const {
     data,
     isLoading,
@@ -38,6 +42,7 @@ const Login = () => {
     },
   });
 
+  // button click event
   const handleSubmit = (event) => {
     event.preventDefault();
     const user = { email, password };
@@ -50,12 +55,10 @@ const Login = () => {
   return (
     <div align='center' className="form-container">
       <Box elevation={10}
-      className
         sx={formStyle}>
-        <Typography variant='h4' align='center'sx={{fontWeight: '700'}}>
+        <Typography variant='h4' align='center'sx={{fontWeight: '700', marginBottom: 3}}>
           Login
         </Typography>
-
         <TextField label='Email Address' placeholder='Enter Email Adress' 
         type='email' fullWidth required value={email} onChange={(e) => {
           setEmail(e.target.value)
@@ -93,7 +96,7 @@ const Login = () => {
           color: 'white'
         }}}
         onClick={handleSubmit}>
-          Sign In
+          Login
         </Button>
             
         <Typography variant='subtitle2'>
@@ -101,9 +104,9 @@ const Login = () => {
                 Forgot password ?
         </Link>
         </Typography>
-        <hr style={{color: '#black', width:270, opacity: '50%'}} />
-        <Typography variant='subtitle2' align='center'> Do you have an account ?
-          <Link href="#" >
+        <hr/>
+        <Typography variant='subtitle2' align='center'> Do you have an account ?{' '}
+          <Link href="signup" >
             Sign Up 
           </Link>
         </Typography>
