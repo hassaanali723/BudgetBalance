@@ -13,6 +13,8 @@ import Transactions from "./pages/Transactions";
 import Budget from "./pages/Budget";
 import Layout from "./components/shared/layout";
 import Savings from "./pages/Savings";
+import Profile from "./pages/Profile";
+import CategoryManagement from "./pages/CategoryManagement";
 
 const App = () => {
   return (
@@ -59,6 +61,23 @@ const App = () => {
               element={
                 <ProtectedRoute>
                   <Budget />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="profile"
+              element={
+                <ProtectedRoute>
+                  <Profile />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="categories"
+              element={
+                <ProtectedRoute>
+                  <CategoryManagement />
                 </ProtectedRoute>
               }
             />

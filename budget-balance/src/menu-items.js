@@ -8,6 +8,7 @@ import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import SettingsApplicationsIcon from "@mui/icons-material/SettingsApplications";
 import DocumentScannerIcon from "@mui/icons-material/DocumentScanner";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import CategoryIcon from "@mui/icons-material/Category";
 
 export default {
   menuItem: [
@@ -32,6 +33,11 @@ export default {
       icon: <WalletIcon />,
     },
     {
+      path: "/categories",
+      name: "Category Management",
+      icon: <CategoryIcon />,
+    },
+    {
       path: "/settings",
       name: "Settings",
       icon: <SettingsApplicationsIcon />,
@@ -43,7 +49,7 @@ export default {
     },
   ],
   navbarMenuItems: [
-    { path: "/user/profile", name: "Profile", icon: <AccountCircleIcon /> },
+    { path: "/profile", name: "Profile", icon: <AccountCircleIcon /> },
     { path: "/auth/logout", name: "Logout", icon: <LoginIcon /> },
   ],
 };

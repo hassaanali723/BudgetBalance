@@ -208,7 +208,7 @@ const Layout = () => {
             }}
             transformOrigin={{ horizontal: "right", vertical: "top" }}
             anchorOrigin={{ horizontal: "right", vertical: "bottom" }}>
-            <MenuItem component={Link} to={Navigation.navbarMenuItems[0].Link}>
+            <MenuItem component={Link} to={Navigation.navbarMenuItems[0].path}>
               <ListItemIcon>{Navigation.navbarMenuItems[0].icon}</ListItemIcon>
               {Navigation.navbarMenuItems[0].name}
             </MenuItem>
