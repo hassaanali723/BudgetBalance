@@ -24,3 +24,28 @@ export const getUser = async (user) => {
     throw new Error("Login Error");
   }
 };
+
+export const createAccount = async (account) => {
+  try {
+    const response = await axios.post(`${baseUrl}/users/accounts`, account);
+    console.log("res", response) 
+    return response.data;
+  } catch (error) {
+    throw new Error("Error");
+  }
+};
+
+export const getAccount = async (account) => {
+  try {
+    const response = await axios.post(`${baseUrl}/users/accounts`, account);
+    if (response.data.AccessToken) {
+      localStorage.setItem(
+        "accessToken",
+        JSON.stringify(response.data.AccessToken)
+      );
+    }
+    return response.data;
+  } catch (error) {
+    throw new Error("Login Error");
+  }
+};
