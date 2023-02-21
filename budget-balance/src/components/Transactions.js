@@ -199,11 +199,11 @@ function EnhancedTableToolbar(props) {
         </Typography>
       ) : (
         <Typography
-          sx={{ flex: "1 1 100%" }}
-          variant="h6"
-          id="tableTitle"
+          sx={{ textAlign: "left", fontWeight: "600" }}
+          variant="h5"
+          noWrap
           component="div">
-          Nutrition
+          Transactions
         </Typography>
       )}
 

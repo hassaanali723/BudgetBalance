@@ -5,6 +5,9 @@ import WalletIcon from "@mui/icons-material/Wallet";
 import LoginIcon from "@mui/icons-material/Login";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
+import SettingsApplicationsIcon from "@mui/icons-material/SettingsApplications";
+import DocumentScannerIcon from "@mui/icons-material/DocumentScanner";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 export default {
   menuItem: [
@@ -29,14 +32,18 @@ export default {
       icon: <WalletIcon />,
     },
     {
-      path: "/auth/login",
-      name: "Login",
-      icon: <LoginIcon />,
+      path: "/settings",
+      name: "Settings",
+      icon: <SettingsApplicationsIcon />,
     },
     {
-      path: "/auth/signup",
-      name: "SignUp",
-      icon: <HowToRegIcon />,
+      path: "/documentation",
+      name: "Documentation",
+      icon: <DocumentScannerIcon />,
     },
+  ],
+  navbarMenuItems: [
+    { path: "/user/profile", name: "Profile", icon: <AccountCircleIcon /> },
+    { path: "/auth/logout", name: "Logout", icon: <LoginIcon /> },
   ],
 };
