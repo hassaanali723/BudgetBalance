@@ -15,6 +15,8 @@ import Layout from "./components/shared/layout";
 import Savings from "./pages/Savings";
 import Profile from "./pages/Profile";
 import CategoryManagement from "./pages/CategoryManagement";
+import Settings from "./pages/Settings";
+import Documentation from "./pages/Documentation";
 
 const App = () => {
   return (
@@ -78,6 +80,24 @@ const App = () => {
               element={
                 <ProtectedRoute>
                   <CategoryManagement />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="settings"
+              element={
+                <ProtectedRoute>
+                  <Settings />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="documentation"
+              element={
+                <ProtectedRoute>
+                  <Documentation />
                 </ProtectedRoute>
               }
             />
