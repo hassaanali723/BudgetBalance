@@ -1,29 +1,40 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Grid, Box, Typography, Button, TextField, Stack, Card,
-CardContent, CardActions, IconButton, Menu, MenuItem } from '@mui/material';
+CardContent } from '@mui/material';
 import { formStyle } from "./authentication/login/Login";
 import { ValidatorForm } from "react-material-ui-form-validator";
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
-import { createAccount, getAccount } from "../api/auth/authApi";
+import { useQuery } from "react-query";
+import { createAccount, fetchAccounts } from "../api/auth/authApi";
+import Account from "./Account";
 
 const Accounts = () => {
 
   // managing input states
   const [name, setName] = useState("");
   const [amount, setAmount] = useState(0);
+  const [accounts, setAccounts] = useState([]);
   const navigate = useNavigate();
+  let totalAmount = 0;
 
+  const {acc_data, isFetching, isError} = useQuery(
+    'accounts',
+    fetchAccounts
+  )
 
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+  useEffect(() => {
+    if(acc_data && !isFetching && !isError) {
+      setAccounts(acc_data);
+    }
+  }, [acc_data, isFetching, isError]);
+
+/*   // Delete Account
+  const deleteAccount = async (id) => {
+    await fetch(`http://localhost:5000/accounts/${id}`, {method: 'DELETE'})
+
+    setAccounts(accounts.filter((account) => account.id !== id))
+  } */
 
   const {
     data,
@@ -32,7 +43,7 @@ const Accounts = () => {
     mutate: create_account,
   } = useMutation("create account", createAccount, {
     onSuccess: (data) => {
-      console.log(data)
+      setAccounts(...accounts, data)
       navigate("");
     },
   });
@@ -45,6 +56,9 @@ const Accounts = () => {
     setName("");
     setAmount(0);
   };
+
+  if (isLoading) return <h1>Loading...</h1>;
+  if (error) return <h1>Error in loading</h1>;
 
   return (
     <Grid container spacing={2} sx={{justifyContent: 'space-evenly'}}>
@@ -109,63 +123,18 @@ const Accounts = () => {
               align="center"
               sx={{ fontWeight: 700 }}>
                 Total Amount:
-                <span style={{ color: amount>=500 ? 'green' : 'red' }}>{" "}Rs. {amount}</span>
+                <span style={{ color: amount>=500 ? 'green' : 'red' }}>
+                  {" "}Rs. {accounts.map((account) => (
+                    totalAmount += account.amount
+                  ))
+                }
+                </span>
               </Typography>
             </CardContent>
           </Card>
-          <Card 
-          sx={{ width: 400, display: "flex", flexDirection: 'row', 
-          justifyContent: 'space-evenly' }}>
-            <CardContent sx={{display: 'flex', flexGrow: 2}}>
-              <Typography variant="h6"
-              sx={{  fontWeight: 600, flexGrow: 2 }}>
-                Bank
-              </Typography>
-              <Typography
-              variant="h6">
-                Rs. 100
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <IconButton
-              onClick={handleClick}
-              aria-controls={open ? 'account-menu' : undefined}
-              aria-haspopup="true"
-              aria-expanded={open ? 'true' : undefined} >
-                <MoreVertIcon />
-              </IconButton>
-
-              <Menu
-              anchorEl={anchorEl}
-              id="account-menu"
-              open={open}
-              onClose={handleClose}
-              onClick={handleClose}
-              PaperProps={{
-              elevation: 0,
-              sx: {
-                overflow: 'visible',
-                filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-                mt: 1.5,
-                '& .MuiAvatar-root': {
-                  width: 32,
-                  height: 32,
-                  ml: -0.5,
-                  mr: 1,
-              },},}}
-              transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-              anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-              >
-                <MenuItem onClick={handleClose}>
-                  Edit Account
-                </MenuItem>
-                <MenuItem onClick={handleClose}>
-                  Delete Account
-                </MenuItem>
-              </Menu>
-
-            </CardActions>
-          </Card>
+          {accounts.map((account) => (
+              <Account key={account.id} account={account} />
+            ))}
         </Stack>
       </Grid>
     </Grid>
