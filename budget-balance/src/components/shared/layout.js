@@ -160,7 +160,7 @@ const Layout = () => {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" noWrap component="div">
-              Budget Balance
+              PinchPenny
             </Typography>
           </Box>
 
@@ -225,7 +225,7 @@ const Layout = () => {
         open={open}>
         <DrawerHeader>
           <Typography variant="h5" noWrap component="div">
-            Budget Balance
+            PinchPenny
           </Typography>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === "rtl" ? (
