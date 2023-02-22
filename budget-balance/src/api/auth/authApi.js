@@ -27,25 +27,18 @@ export const getUser = async (user) => {
 
 export const createAccount = async (account) => {
   try {
-    const response = await axios.post(`${baseUrl}/users/accounts`, account);
-    console.log("res", response) 
+    const response = await axios.post(`${baseUrl}/accounts`, account);
     return response.data;
   } catch (error) {
     throw new Error("Error");
   }
 };
 
-export const getAccount = async (account) => {
+export const fetchAccounts = async () => {
   try {
-    const response = await axios.post(`${baseUrl}/users/accounts`, account);
-    if (response.data.AccessToken) {
-      localStorage.setItem(
-        "accessToken",
-        JSON.stringify(response.data.AccessToken)
-      );
-    }
+    const response = await axios.get(`${baseUrl}/accounts`);
     return response.data;
   } catch (error) {
-    throw new Error("Login Error");
+    throw new Error("Error");
   }
 };
