@@ -28,7 +28,7 @@ export const getUser = async (user) => {
 export const createAccount = async (account) => {
   try {
     const response = await axios.post(`${baseUrl}/accounts`, account);
-    return response.data;
+    return response.data.data;
   } catch (error) {
     throw new Error("Error");
   }
@@ -37,8 +37,20 @@ export const createAccount = async (account) => {
 export const fetchAccounts = async () => {
   try {
     const response = await axios.get(`${baseUrl}/accounts`);
+    console.log(response.data)
     return response.data;
   } catch (error) {
     throw new Error("Error");
   }
 };
+
+export const deleteAccount = (id) => {
+  axios.delete(`${baseUrl}/accounts/${id}`)
+    .then((response) => {
+      console.log(response.data.message);
+      window.location.reload();
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}

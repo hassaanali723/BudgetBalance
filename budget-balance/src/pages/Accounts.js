@@ -16,34 +16,29 @@ const Accounts = () => {
   const [amount, setAmount] = useState(0);
   const [accounts, setAccounts] = useState([]);
   const navigate = useNavigate();
-  let totalAmount = 0;
 
-  const {acc_data, isFetching, isError} = useQuery(
-    'accounts',
+  // fetching accounts
+  const {isFetching, data , isError, refetch} = useQuery(
+    'myAccounts',
     fetchAccounts
   )
 
   useEffect(() => {
-    if(acc_data && !isFetching && !isError) {
-      setAccounts(acc_data);
+    if(!isFetching && !isError) {
+      setAccounts(data);
     }
-  }, [acc_data, isFetching, isError]);
+  }, [data]);
 
-/*   // Delete Account
-  const deleteAccount = async (id) => {
-    await fetch(`http://localhost:5000/accounts/${id}`, {method: 'DELETE'})
-
-    setAccounts(accounts.filter((account) => account.id !== id))
-  } */
-
+  // creating account
   const {
-    data,
     isLoading,
     error,
     mutate: create_account,
   } = useMutation("create account", createAccount, {
-    onSuccess: (data) => {
-      setAccounts(...accounts, data)
+    onSuccess: () => {
+      setName("");
+      setAmount(0);
+      refetch()
       navigate("");
     },
   });
@@ -53,17 +48,18 @@ const Accounts = () => {
     event.preventDefault();
     const account = { name, amount };
     create_account(account);
-    setName("");
-    setAmount(0);
   };
 
   if (isLoading) return <h1>Loading...</h1>;
   if (error) return <h1>Error in loading</h1>;
 
+  if (isFetching) return <div>Fetching data...</div>;
+  if (isError) return <div>Error</div>;
+
   return (
     <Grid container spacing={2} sx={{justifyContent: 'space-evenly'}}>
       <Grid item>
-        <Box elevation={10} sx={formStyle} style={{width: 380}}>
+        <Box elevation={10} sx={formStyle} style={{width: 380, height: 510}}>
           <Typography
             variant="h4"
             align="center"
@@ -82,7 +78,6 @@ const Accounts = () => {
                 setName(e.target.value);
               }}
             />
-
             <TextField
               label="Initial Amount"
               type="number"
@@ -95,7 +90,6 @@ const Accounts = () => {
                 setAmount(e.target.value);
               }}
             />
-
             <Button
               type="submit"
               color="primary"
@@ -123,17 +117,14 @@ const Accounts = () => {
               align="center"
               sx={{ fontWeight: 700 }}>
                 Total Amount:
-                <span style={{ color: amount>=500 ? 'green' : 'red' }}>
-                  {" "}Rs. {accounts.map((account) => (
-                    totalAmount += account.amount
-                  ))
-                }
+                <span style={{ color: ` ${accounts.reduce((total, account) => total + account.amount, 0) >= 500 ? 'green' : 'red'}` }}>
+                  {' '}Rs. {accounts.reduce((total, account) => total + account.amount, 0)}
                 </span>
               </Typography>
             </CardContent>
           </Card>
           {accounts.map((account) => (
-              <Account key={account.id} account={account} />
+            <Account key={account.id} account={account}/>
             ))}
         </Stack>
       </Grid>
